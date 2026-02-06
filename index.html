@@ -11,9 +11,11 @@
             --steel-blue: #3372A1;
             --glass-panel: rgba(51, 114, 161, 0.15);
             --border-white: rgba(255, 255, 255, 0.4);
+            --added-color: #00ffaa; /* Tech Green for 'Added' */
+            --removed-color: #ff4b4b; /* Alert Red for 'Removed' */
         }
 
-        /* Custom Scrollbar */
+        /* --- Scrollbar --- */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--space-bg); }
         ::-webkit-scrollbar-thumb { background: var(--steel-blue); border-radius: 10px; }
@@ -35,7 +37,7 @@
         }
 
         .logo-box {
-            width: 60px; height: 60px;
+            width: 65px; height: 65px;
             border: 1px solid var(--glow-magenta);
             box-shadow: 0 0 15px var(--glow-magenta);
             margin: 0 auto 1rem;
@@ -43,7 +45,7 @@
             font-size: 0.7rem; letter-spacing: 2px;
         }
 
-        h1 { font-size: 3rem; text-transform: uppercase; letter-spacing: 8px; margin: 0; text-shadow: 0 0 10px rgba(230, 0, 255, 0.5); }
+        h1 { font-size: 3rem; text-transform: uppercase; letter-spacing: 8px; margin: 0; }
         .motto { color: var(--glow-magenta); font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase; margin-top: 10px; }
 
         main { max-width: 1100px; margin: 0 auto; padding: 20px; }
@@ -54,20 +56,11 @@
             border: 1px solid var(--border-white);
             padding: 2rem;
             margin-top: 3rem;
-            border-radius: 2px;
         }
 
-        h2 { 
-            font-size: 0.9rem; 
-            letter-spacing: 3px; 
-            text-transform: uppercase; 
-            margin-bottom: 2rem; 
-            color: var(--steel-blue);
-            border-left: 3px solid var(--glow-magenta);
-            padding-left: 15px;
-        }
+        h2 { font-size: 0.9rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 2rem; color: var(--steel-blue); border-left: 3px solid var(--glow-magenta); padding-left: 15px; }
 
-        /* --- MISSION TEMPLATE (SpaceX Style) --- */
+        /* --- MISSION TABLE --- */
         .mission-row {
             display: grid;
             grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr;
@@ -76,80 +69,51 @@
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 1px;
-            align-items: center;
         }
         .mission-header { font-weight: bold; color: var(--steel-blue); border-bottom: 2px solid var(--border-white); }
-        .mission-row div { padding: 5px 10px; }
         .mission-desc { grid-column: 1 / -1; text-transform: none; color: #aaa; padding-top: 10px !important; font-style: italic; }
 
-        /* --- TEST TEMPLATE --- */
-        .test-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
-        .test-card {
-            border: 1px solid var(--border-white);
-            padding: 15px;
-            background: rgba(0,0,0,0.3);
-        }
-        .test-card h3 { font-size: 0.8rem; color: var(--glow-magenta); margin-top: 0; }
-        .test-label { font-size: 0.6rem; color: var(--steel-blue); display: block; margin-top: 8px; }
+        /* --- TEST CARDS --- */
+        .test-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .test-card { border: 1px solid var(--border-white); padding: 15px; background: rgba(0,0,0,0.3); }
+        .test-card h3 { font-size: 0.8rem; color: var(--glow-magenta); margin-top: 0; text-transform: uppercase; }
+        .test-label { font-size: 0.6rem; color: var(--steel-blue); display: block; margin-top: 8px; font-weight: bold; }
 
-        /* --- EXPANDABLE CHANGELOG --- */
+        /* --- INTERACTIVE CHANGELOG --- */
         .log-scroll-frame {
-            height: 350px;
+            height: 450px;
             overflow-y: auto;
             border: 1px solid rgba(255,255,255,0.1);
             padding: 10px;
         }
-        details {
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding: 10px 0;
-        }
-        summary {
-            list-style: none;
-            cursor: pointer;
-            font-family: monospace;
-            color: var(--glow-magenta);
-            font-weight: bold;
-            display: flex;
-            justify-content: space-between;
-        }
-        summary::-webkit-details-marker { display: none; }
-        summary::after { content: "[+]"; font-size: 0.8rem; }
-        details[open] summary::after { content: "[-]"; }
-        .log-content {
-            padding: 15px;
-            font-size: 0.9rem;
-            color: #ccc;
-            background: rgba(255,255,255,0.03);
-            margin-top: 10px;
-        }
+        details { border-bottom: 1px solid rgba(255,255,255,0.1); padding: 10px 0; }
+        summary { cursor: pointer; font-family: monospace; color: var(--glow-magenta); font-weight: bold; display: flex; justify-content: space-between; padding: 5px; }
+        summary:hover { background: rgba(230, 0, 255, 0.1); }
+        
+        .log-content { padding: 15px; font-size: 0.85rem; background: rgba(0,0,0,0.2); }
+        
+        /* Bullet Point Categories */
+        .log-cat { font-weight: bold; margin-top: 15px; display: block; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; }
+        .cat-added { color: var(--added-color); }
+        .cat-removed { color: var(--removed-color); }
+        .cat-notes { color: var(--steel-blue); }
 
-        .booking-btn {
-            background: none;
-            border: 1px solid white;
-            color: white;
-            padding: 10px 25px;
-            text-decoration: none;
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            transition: 0.3s;
-        }
-        .booking-btn:hover { background: white; color: black; }
+        ul { margin: 5px 0 15px 20px; padding: 0; list-style-type: "— "; }
+        li { margin-bottom: 5px; color: #ccc; }
 
-        @media (max-width: 850px) {
-            .mission-row { grid-template-columns: 1fr 1fr; gap: 10px; }
-        }
+        .booking-btn { border: 1px solid white; color: white; padding: 10px 25px; text-decoration: none; font-size: 0.8rem; letter-spacing: 2px; transition: 0.3s; display: inline-block; }
+        .booking-btn:hover { background: white; color: black; box-shadow: 0 0 15px white; }
+
+        @media (max-width: 850px) { .mission-row { grid-template-columns: 1fr 1fr; } }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo-box">LOGO</div>
+        <div class="logo-box">GH-01</div>
         <h1>Galactic Horizon</h1>
         <p class="motto">Putting Space On The Horizon For All</p>
+        <p style="font-size: 0.7rem; opacity: 0.5;">EST. OCT 1, 2024</p>
     </header>
 
     <main>
@@ -157,29 +121,12 @@
         <section id="missions">
             <h2>Mission Manifest</h2>
             <div class="mission-row mission-header">
-                <div>Mission</div>
-                <div>Vehicle</div>
-                <div>Launch Site</div>
-                <div>Landing Site</div>
-                <div>Date & Time</div>
+                <div>Mission</div><div>Vehicle</div><div>Launch Site</div><div>Landing Site</div><div>Date & Time</div>
             </div>
 
             <div class="mission-row">
-                <div>AFAA I - Global Connect</div>
-                <div>Horizon Heavy</div>
-                <div>SLC-4E, CA</div>
-                <div>OCISLY Droneship</div>
-                <div>Feb 7, 2026 11:05 CT</div>
-                <div class="mission-desc">Primary payload deployment of the AFAA I satellite constellation for low-latency orbital networking.</div>
-            </div>
-
-            <div class="mission-row">
-                <div>Pathfinder II</div>
-                <div>Nova-9</div>
-                <div>KSC Pad 39A</div>
-                <div>LZ-1, FL</div>
-                <div>Mar 15, 2026 09:00 ET</div>
-                <div class="mission-desc">Experimental lunar reconnaissance probe to identify water-ice deposits in the South Pole.</div>
+                <div>AFAA I - Orbital Link</div><div>Horizon Heavy</div><div>SLC-4E, CA</div><div>Droneship</div><div>Feb 7, 2026 11:05 CT</div>
+                <div class="mission-desc">Deployment of the first high-bandwidth constellation for Galactic Horizon.</div>
             </div>
         </section>
 
@@ -187,25 +134,14 @@
             <h2>System Testing Lab</h2>
             <div class="test-grid">
                 <div class="test-card">
-                    <span class="test-label">TEST</span>
-                    <h3>Static Fire Alpha</h3>
-                    <span class="test-label">TEST ARTICLE</span>
-                    <p>AFAA Booster B108</p>
-                    <span class="test-label">TYPE</span>
-                    <p>Full Duration Ignition</p>
-                    <span class="test-label">DATE / SITE</span>
-                    <p>02.04.26 / McGregor, TX</p>
+                    <span class="test-label">TEST</span><h3>Static Fire Alpha</h3>
+                    <span class="test-label">TEST ARTICLE</span><p>AFAA Booster B108</p>
+                    <span class="test-label">TYPE / SITE</span><p>Ignition / McGregor, TX</p>
                 </div>
-
                 <div class="test-card">
-                    <span class="test-label">TEST</span>
-                    <h3>Pressure Vessel Load</h3>
-                    <span class="test-label">TEST ARTICLE</span>
-                    <p>Fuel Tank S24-B</p>
-                    <span class="test-label">TYPE</span>
-                    <p>Cryogenic Proof Test</p>
-                    <span class="test-label">DATE / SITE</span>
-                    <p>01.28.26 / Starbase, TX</p>
+                    <span class="test-label">TEST</span><h3>Pressure Proof</h3>
+                    <span class="test-label">TEST ARTICLE</span><p>Cargo Bay S1</p>
+                    <span class="test-label">TYPE / SITE</span><p>Cryo Load / Starbase, TX</p>
                 </div>
             </div>
         </section>
@@ -214,46 +150,67 @@
             <h2>Mission Logs (AFAA I)</h2>
             <div class="log-scroll-frame">
                 
-                <details>
-                    <summary>02.06.26 — UI Architecture Overhaul</summary>
+                <details open>
+                    <summary>02.06.26 — Command Center Update</summary>
                     <div class="log-content">
-                        • Integrated SpaceX-style mission tables.<br>
-                        • Converted logs to interactive accordion style.<br>
-                        • Added system testing module for internal transparency.
+                        <span class="log-cat cat-added">Added:</span>
+                        <ul>
+                            <li>Interactive SpaceX-style Mission Manifest.</li>
+                            <li>System Testing Lab data cards.</li>
+                            <li>Categorized bullet point system for log entries.</li>
+                        </ul>
+
+                        <span class="log-cat cat-removed">Removed:</span>
+                        <ul>
+                            <li>Legacy single-column log display.</li>
+                            <li>Static background image to improve load speed.</li>
+                        </ul>
+
+                        <span class="log-cat cat-notes">Additional Notes:</span>
+                        <ul>
+                            <li>All UI components now support high-contrast space-theme readability.</li>
+                        </ul>
                     </div>
                 </details>
 
                 <details>
-                    <summary>02.05.26 — Propulsion Calibration</summary>
+                    <summary>02.05.26 — Navigation Subsystems</summary>
                     <div class="log-content">
-                        • Adjusted Raptor-Vac nozzles for high-altitude vacuum efficiency.<br>
-                        • Telemetry sync locked with Ground Station 4.
+                        <span class="log-cat cat-added">Added:</span>
+                        <ul>
+                            <li>New telemetry handshake protocol.</li>
+                            <li>Auto-correction for solar flare interference.</li>
+                        </ul>
+                        <span class="log-cat cat-notes">Additional Notes:</span>
+                        <ul>
+                            <li>Flight software version updated to v1.2.4.</li>
+                        </ul>
                     </div>
                 </details>
 
-                <details><summary>02.04.26 — Sensor Array Test</summary><div class="log-content">Passed 100% diagnostics.</div></details>
-                <details><summary>02.03.26 — Payload Door Seal</summary><div class="log-content">Seal integrity verified.</div></details>
-                <details><summary>02.02.26 — Software Kernel Update</summary><div class="log-content">Patch 0.4.2 deployed.</div></details>
-                <details><summary>02.01.26 — Monthly Review</summary><div class="log-content">All systems nominal.</div></details>
-                <details><summary>01.30.26 — Battery Stress Test</summary><div class="log-content">Operating at peak capacity.</div></details>
-                <details><summary>01.25.26 — Communication Relay</summary><div class="log-content">Signal latency reduced by 4ms.</div></details>
-                <details><summary>01.15.26 — Thermal Shielding</summary><div class="log-content">Composite material check complete.</div></details>
-                <details><summary>01.05.26 — INITIAL LAUNCH</summary><div class="log-content">Vehicle away. Mission active.</div></details>
+                <details><summary>02.04.26 — Payload Integration</summary><div class="log-content"><ul><li>Log data placeholder...</li></ul></div></details>
+                <details><summary>02.03.26 — Thermal Shielding Check</summary><div class="log-content"><ul><li>Log data placeholder...</li></ul></div></details>
+                <details><summary>02.02.26 — Ground Station Sync</summary><div class="log-content"><ul><li>Log data placeholder...</li></ul></div></details>
+                <details><summary>02.01.26 — Fuel Manifold Test</summary><div class="log-content"><ul><li>Log data placeholder...</li></ul></div></details>
+                <details><summary>01.28.26 — Encrypted Link Setup</summary><div class="log-content"><ul><li>Log data placeholder...</li></ul></div></details>
+                <details><summary>01.20.26 — Hardware Finalization</summary><div class="log-content"><ul><li>Log data placeholder...</li></ul></div></details>
+                <details><summary>01.10.26 — Pre-Launch Diagnostics</summary><div class="log-content"><ul><li>Log data placeholder...</li></ul></div></details>
+                <details><summary>01.05.26 — INITIAL LAUNCH SUCCESS</summary><div class="log-content"><ul><li>Mission Active.</li></ul></div></details>
 
             </div>
         </section>
 
         <section id="events" style="text-align: center;">
-            <h2>Upcoming Launch Viewing</h2>
-            <p>Experience the power of a Galactic Horizon launch live from Cape Canaveral.</p>
+            <h2>Launch Viewing & Events</h2>
+            <p>Join the Horizon community for upcoming orbital events.</p>
             <br>
-            <a href="https://forms.google.com" class="booking-btn">REGISTER FOR TICKETS</a>
+            <a href="https://forms.google.com" class="booking-btn">BOOK MISSION PASS</a>
         </section>
 
     </main>
 
     <footer style="text-align: center; padding: 3rem; font-size: 0.7rem; opacity: 0.5; letter-spacing: 2px;">
-        &copy; 2026 GALACTIC HORIZON | EST. 10.01.2024
+        &copy; 2026 GALACTIC HORIZON | MISSION CONTROL SYSTEMS
     </footer>
 
 </body>
