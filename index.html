@@ -16,9 +16,8 @@
             --removed-color: #ff4b4b;
         }
 
-        /* Inverted Theme Variables */
         body.inverted {
-            --glow-magenta: #3372A1; /* Swap Magenta for Blue */
+            --glow-magenta: #3372A1;
             --space-bg: #f5f5f5;
             --steel-blue: #E600FF;
             --glass-panel: rgba(230, 0, 255, 0.05);
@@ -26,17 +25,8 @@
             --text-color: #1a001d;
         }
 
-        /* --- Global Tweens & Animations --- */
-        * { transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
+        * { transition: background 0.4s, color 0.4s, border 0.4s, box-shadow 0.4s; }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .reveal { animation: fadeIn 0.8s ease forwards; }
-
-        /* --- Layout --- */
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--space-bg);
@@ -45,19 +35,47 @@
             overflow-x: hidden;
         }
 
-        header {
+        /* --- UI Elements --- */
+        .ticker-bar {
+            background: var(--steel-blue);
+            color: white;
+            padding: 8px;
+            font-size: 0.7rem;
             text-align: center;
-            padding: 4rem 1rem 2rem;
-            border-bottom: 1px solid var(--border-white);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: flex;
+            justify-content: space-around;
         }
 
+        .mission-timer {
+            font-family: monospace;
+            font-weight: bold;
+            color: var(--glow-magenta);
+            text-shadow: 0 0 10px var(--glow-magenta);
+        }
+
+        .ui-controls { position: fixed; top: 50px; right: 20px; z-index: 1000; }
+        .invert-toggle {
+            background: var(--glow-magenta);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        header { text-align: center; padding: 4rem 1rem 2rem; border-bottom: 1px solid var(--border-white); }
         .logo-box {
-            width: 65px; height: 65px;
+            width: 60px; height: 60px;
             border: 1px solid var(--glow-magenta);
             box-shadow: 0 0 15px var(--glow-magenta);
             margin: 0 auto 1rem;
             display: flex; align-items: center; justify-content: center;
-            font-size: 0.7rem; font-weight: bold;
+            font-size: 0.8rem;
         }
 
         h1 { font-size: 3rem; text-transform: uppercase; letter-spacing: 8px; margin: 0; }
@@ -66,140 +84,121 @@
         .discord-btn {
             display: inline-block;
             margin: 15px 0;
-            padding: 8px 20px;
-            background: #5865F2; /* Discord Blurple */
+            padding: 10px 25px;
+            background: #5865F2;
             color: white;
             text-decoration: none;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-        .discord-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px #5865F2; }
-
-        /* --- Interface Controls --- */
-        .ui-controls {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-
-        .invert-toggle {
-            background: var(--glow-magenta);
-            color: var(--space-bg);
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            font-weight: bold;
             font-size: 0.7rem;
-            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            font-weight: bold;
+            letter-spacing: 1px;
         }
 
-        main { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        main { max-width: 1100px; margin: 0 auto; padding: 20px; }
 
         section {
             background: var(--glass-panel);
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(10px);
             border: 1px solid var(--border-white);
-            padding: 2rem;
+            padding: 2.5rem;
             margin-top: 3rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s, transform 0.6s;
         }
 
-        section:hover { border-color: var(--glow-magenta); box-shadow: 0 0 20px rgba(230, 0, 255, 0.1); }
+        section.visible { opacity: 1; transform: translateY(0); }
 
         h2 { font-size: 0.9rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 2rem; color: var(--steel-blue); border-left: 3px solid var(--glow-magenta); padding-left: 15px; }
 
-        /* --- Tables & Cards --- */
+        /* --- Sections Style --- */
         .mission-row {
             display: grid;
             grid-template-columns: 1.5fr 1fr 1fr 1fr 1.5fr 0.8fr;
             border-bottom: 1px solid var(--border-white);
-            padding: 15px 0;
+            padding: 12px 0;
             font-size: 0.75rem;
             text-transform: uppercase;
         }
-        .res-badge { padding: 4px 8px; border: 1px solid currentColor; font-size: 0.6rem; font-weight: bold; }
 
         .test-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
         .test-card { border: 1px solid var(--border-white); padding: 15px; background: rgba(0,0,0,0.1); }
 
-        /* --- Scrollable Devlog --- */
-        .log-scroll-frame {
-            height: 400px;
-            overflow-y: auto;
-            border: 1px solid var(--border-white);
-            padding: 15px;
-        }
+        .event-flex { display: flex; gap: 30px; align-items: center; }
+        .event-img-strip { display: flex; gap: 10px; }
+        .event-img-strip div { width: 80px; height: 80px; background: #222; border: 1px solid var(--border-white); }
+
+        .log-scroll-frame { height: 350px; overflow-y: auto; border: 1px solid var(--border-white); padding: 15px; }
         details { border-bottom: 1px solid rgba(128,128,128,0.2); }
-        summary { cursor: pointer; padding: 10px; font-family: monospace; color: var(--glow-magenta); }
-        .log-content { padding: 15px; background: rgba(0,0,0,0.05); font-size: 0.85rem; }
-        
-        /* Stats Ticker Feature */
-        .ticker {
-            background: var(--steel-blue);
-            color: white;
-            padding: 5px;
-            font-size: 0.7rem;
-            text-align: center;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
+        summary { cursor: pointer; padding: 10px; font-family: monospace; color: var(--glow-magenta); font-weight: bold; }
+        .log-content { padding: 15px; font-size: 0.85rem; }
+        .log-cat { font-weight: bold; display: block; margin-top: 10px; text-transform: uppercase; font-size: 0.7rem; }
+        ul { margin: 5px 0 10px 20px; padding: 0; list-style-type: "— "; color: #ccc; }
 
         footer { text-align: center; padding: 4rem 1rem; border-top: 1px solid var(--border-white); margin-top: 50px; }
 
-        @media (max-width: 950px) { .mission-row { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 950px) { .mission-row { grid-template-columns: 1fr 1fr; } .event-flex { flex-direction: column; } }
     </style>
 </head>
 <body>
 
-    <div class="ticker">
-        System Status: Nominal // Latency: 24ms // Uptime: 99.99% // Signal: Strong
+    <div class="ticker-bar">
+        <div>STATUS: NOMINAL</div>
+        <div>MISSION ELAPSED: <span id="mission-clock" class="mission-timer">00:00:00:00</span></div>
+        <div>STATION: FLORIDA_USA</div>
     </div>
 
     <div class="ui-controls">
-        <button class="invert-toggle" onclick="toggleInvert()">INVERT VISUALS</button>
+        <button class="invert-toggle" onclick="toggleInvert()">Invert Visuals</button>
     </div>
 
     <header class="reveal">
-        <div class="logo-box">GH-01</div>
+        <div class="logo-box">GH</div>
         <h1>Galactic Horizon</h1>
         <p class="motto">Putting Space On The Horizon For All</p>
-        
-        <a href="https://discord.gg/yourlink" class="discord-btn">JOIN MISSION CONTROL DISCORD</a>
-        
-        <p style="font-size: 0.7rem; opacity: 0.6;">ESTABLISHED OCTOBER 1, 2024</p>
+        <a href="https://discord.gg/invite" class="discord-btn">JOIN DISCORD SERVER</a>
+        <p style="font-size: 0.6rem; opacity: 0.5; margin-top: 15px;">EST. OCT 1, 2024</p>
     </header>
 
     <main>
 
-        <section id="missions" class="reveal">
+        <section id="upcoming-missions" class="reveal">
             <h2>Upcoming Missions</h2>
-            <div class="mission-row" style="font-weight: bold; color: var(--steel-blue);">
+            <div class="mission-row" style="color: var(--steel-blue); font-weight: bold;">
                 <div>Mission</div><div>Vehicle</div><div>Launch Site</div><div>Landing Site</div><div>Date</div><div>Result</div>
             </div>
-
             <div class="mission-row">
-                <div>AFAA I - Orbital Link</div><div>Horizon Heavy</div><div>SLC-4E, CA</div><div>Droneship</div><div>Feb 7, 2026</div>
-                <div><span class="res-badge" style="color:var(--added-color)">SUCCESS</span></div>
-            </div>
-            <div class="mission-row">
-                <div>Pathfinder II</div><div>Nova-9</div><div>Pad 39A</div><div>LZ-1</div><div>Mar 15, 2026</div>
-                <div><span class="res-badge" style="color:var(--steel-blue)">PLANNED</span></div>
+                <div>AFAA I</div><div>Horizon Heavy</div><div>SLC-4E</div><div>OCISLY</div><div>FEB 6, 2026</div>
+                <div style="color: var(--added-color);">SUCCESS</div>
             </div>
         </section>
 
-        <section id="tests" class="reveal">
+        <section id="upcoming-tests" class="reveal">
             <h2>Upcoming Tests</h2>
             <div class="test-grid">
                 <div class="test-card">
-                    <span style="font-size: 0.6rem; color: var(--steel-blue);">TEST ARTICLE: B108</span>
-                    <h3 style="margin: 5px 0;">Static Fire Alpha</h3>
-                    <p style="font-size: 0.7rem;">RESULT: <span style="color:var(--added-color)">PROPELLANT LOAD SUCCESS</span></p>
+                    <span style="font-size: 0.6rem; color: var(--steel-blue);">B108-ALPHA</span>
+                    <h3>Static Fire</h3>
+                    <p style="font-size: 0.7rem;">RESULT: <span style="color:var(--added-color)">COMPLETE</span></p>
                 </div>
                 <div class="test-card">
-                    <span style="font-size: 0.6rem; color: var(--steel-blue);">TEST ARTICLE: S24-B</span>
-                    <h3 style="margin: 5px 0;">Cryo-Proof Stage 2</h3>
-                    <p style="font-size: 0.7rem;">RESULT: <span style="color:var(--steel-blue)">PENDING FEB 10</span></p>
+                    <span style="font-size: 0.6rem; color: var(--steel-blue);">S24-B</span>
+                    <h3>Cryo Loading</h3>
+                    <p style="font-size: 0.7rem;">RESULT: <span style="color:var(--steel-blue)">PENDING</span></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="upcoming-events" class="reveal">
+            <h2>Upcoming Events</h2>
+            <div class="event-flex">
+                <div style="flex: 1;">
+                    <h3>Horizon Expo 2026</h3>
+                    <p style="font-size: 0.9rem; color: #ccc;"><strong>DATES:</strong> March 12-15, 2026</p>
+                    <p style="font-size: 0.85rem;">Live demonstration of the AFAA constellation and public Q&A with the engineering team. Booking via Google Forms below.</p>
+                    <a href="https://forms.google.com" class="discord-btn" style="background: var(--glow-magenta);">BOOK YOUR EVENT PASS</a>
+                </div>
+                <div class="event-img-strip">
+                    <div></div><div></div><div></div>
                 </div>
             </div>
         </section>
@@ -208,56 +207,66 @@
             <h2>Devlog</h2>
             <div class="log-scroll-frame">
                 <details open>
-                    <summary>02.06.26 — Command Center v7.0 Deployment</summary>
+                    <summary>02.06.26 — Command Center v8.0</summary>
                     <div class="log-content">
-                        <b style="color:var(--added-color)">Added:</b>
+                        <span class="log-cat" style="color:var(--added-color)">Added:</span>
                         <ul>
-                            <li>Global "Tween" transitions for all UI elements.</li>
-                            <li>Interactive Color Inversion Module.</li>
-                            <li>Discord integration in header and footer.</li>
+                            <li>Real-time Mission Elapsed Timer (T+).</li>
+                            <li>Restored Upcoming Events module.</li>
+                            <li>Renamed sections to "Upcoming Missions" and "Upcoming Tests".</li>
                         </ul>
-                        <b style="color:var(--steel-blue)">Additional Notes:</b>
+                        <span class="log-cat" style="color:var(--steel-blue)">Additional Notes:</span>
                         <ul>
-                            <li>Renamed manifest and testing modules for clarity.</li>
+                            <li>UI Inversion logic stabilized for light/dark mode transitions.</li>
                         </ul>
                     </div>
-                </details>
-                <details>
-                    <summary>02.01.26 — Stability Patch</summary>
-                    <div class="log-content"><ul><li>Optimized scroll performance for legacy browsers.</li></ul></div>
                 </details>
             </div>
         </section>
 
     </main>
 
-    <footer class="reveal">
+    <footer>
         <p>&copy; 2026 Galactic Horizon</p>
-        <a href="https://discord.gg/yourlink" class="discord-btn">JOIN DISCORD</a>
-        <p style="font-size: 0.6rem; margin-top: 20px; opacity: 0.5; letter-spacing: 2px;">ALL SYSTEMS NOMINAL // GH-OS v7.0</p>
+        <a href="https://discord.gg/invite" class="discord-btn">JOIN DISCORD</a>
+        <p style="font-size: 0.6rem; opacity: 0.4; margin-top: 20px;">MISSION CONTROL SYSTEMS // V8.0</p>
     </footer>
 
     <script>
-        // Toggle Inverted Visuals
-        function toggleInvert() {
-            document.body.classList.toggle('inverted');
-        }
+        // MISSION TIMER LOGIC
+        // Start Date: Feb 6, 2026, 12:15:00 PM EST
+        const missionStart = new Date("February 6, 2026 12:15:00 GMT-0500").getTime();
 
-        // Scroll Reveal Tweening
+        function updateMissionTimer() {
+            const now = new Date().getTime();
+            const diff = now - missionStart;
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            // Format with leading zeros
+            const fD = String(days).padStart(2, '0');
+            const fH = String(hours).padStart(2, '0');
+            const fM = String(minutes).padStart(2, '0');
+            const fS = String(seconds).padStart(2, '0');
+
+            document.getElementById("mission-clock").innerHTML = `${fD}:${fH}:${fM}:${fS}`;
+        }
+        setInterval(updateMissionTimer, 1000);
+
+        // UI INVERSION
+        function toggleInvert() { document.body.classList.toggle('inverted'); }
+
+        // SCROLL REVEAL TWEENS
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
+                if (entry.isIntersecting) { entry.target.classList.add('visible'); }
             });
         }, { threshold: 0.1 });
 
-        document.querySelectorAll('.reveal').forEach(section => {
-            section.style.opacity = '0';
-            section.style.transform = 'translateY(20px)';
-            observer.observe(section);
-        });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
 
 </body>
