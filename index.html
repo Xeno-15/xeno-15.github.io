@@ -1,1 +1,166 @@
-<h1>hello</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Portal</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --accent: #f1f5f9;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            background-color: var(--light);
+            color: var(--dark);
+        }
+
+        header {
+            background: white;
+            padding: 2rem 10%;
+            border-bottom: 1px solid #e2e8f0;
+            text-align: center;
+        }
+
+        .logo {
+            max-width: 150px;
+            height: auto;
+            margin-bottom: 1rem;
+        }
+
+        .company-info h1 { margin: 0; font-size: 2.5rem; }
+        .motto { font-style: italic; color: #64748b; }
+        .founding-date { font-size: 0.9rem; color: #94a3b8; }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 1rem;
+            background: var(--dark);
+        }
+
+        nav a { color: white; text-decoration: none; font-weight: bold; }
+
+        main { max-width: 900px; margin: 2rem auto; padding: 0 20px; }
+
+        section { margin-bottom: 4rem; }
+
+        h2 { border-bottom: 2px solid var(--primary); display: inline-block; margin-bottom: 1.5rem; }
+
+        /* Changelog Styling */
+        .changelog-entry {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--primary);
+        }
+
+        .log-date { font-weight: bold; color: var(--primary); font-size: 0.9rem; }
+        .log-tag { 
+            background: #dbeafe; color: #1e40af; 
+            padding: 2px 8px; border-radius: 4px; 
+            font-size: 0.75rem; text-transform: uppercase;
+        }
+
+        /* Events Styling */
+        .event-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+        }
+
+        .event-image { background: #cbd5e1; width: 100%; height: 100%; object-fit: cover; }
+
+        .event-content { padding: 1.5rem; }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 6px;
+            margin-top: 1rem;
+            transition: opacity 0.2s;
+        }
+
+        .btn:hover { opacity: 0.9; }
+
+        @media (max-width: 600px) {
+            .event-card { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="https://via.placeholder.com/150x150?text=LOGO" alt="Company Logo" class="logo">
+        
+        <div class="company-info">
+            <h1>TechVanguard Solutions</h1>
+            <p class="founding-date">Established: January 12, 2024</p>
+            <p class="motto">"Coding the future, one commit at a time."</p>
+        </div>
+    </header>
+
+    <nav>
+        <a href="#changelog">Changelog</a>
+        <a href="#events">Events & Booking</a>
+    </nav>
+
+    <main>
+        <section id="changelog">
+            <h2>System Changelog</h2>
+            
+            <div class="changelog-entry">
+                <div class="log-date">February 6, 2026</div>
+                <h3>Version 2.1 Update <span class="log-tag">Update</span></h3>
+                <ul>
+                    <li>Integrated AI-driven analytics dashboard.</li>
+                    <li>Refactored backend API for 30% faster response times.</li>
+                    <li>Fixed CSS bug affecting mobile navigation.</li>
+                </ul>
+            </div>
+
+            <div class="changelog-entry">
+                <div class="log-date">January 20, 2026</div>
+                <h3>Initial Deployment <span class="log-tag">Launch</span></h3>
+                <p>Successfully migrated all legacy data to the new cloud infrastructure.</p>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="events">
+            <h2>Upcoming Events</h2>
+            
+            <div class="event-card">
+                <img src="https://via.placeholder.com/400x300?text=Workshop+Photo" alt="Event" class="event-image">
+                <div class="event-content">
+                    <h3>Summer Dev Summit 2026</h3>
+                    <p><strong>Date:</strong> July 15-17, 2026</p>
+                    <p>Join us for a three-day deep dive into scalable architecture and team leadership. We'll have guest speakers from across the industry.</p>
+                    <p><em>More photos coming soon!</em></p>
+                    <a href="https://forms.google.com" class="btn">Book Your Spot</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer style="text-align: center; padding: 2rem; color: #94a3b8;">
+        &copy; 2026 TechVanguard Solutions
+    </footer>
+
+</body>
+</html>
