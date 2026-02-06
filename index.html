@@ -11,26 +11,38 @@
             --steel-blue: #3372A1;
             --glass-panel: rgba(51, 114, 161, 0.15);
             --border-white: rgba(255, 255, 255, 0.4);
+            --text-color: #ffffff;
             --added-color: #00ffaa;
             --removed-color: #ff4b4b;
-            --success: #00ffaa;
-            --failure: #ff4b4b;
-            --scheduled: #3372A1;
         }
 
-        /* --- Scrollbar --- */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--space-bg); }
-        ::-webkit-scrollbar-thumb { background: var(--steel-blue); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--glow-magenta); }
+        /* Inverted Theme Variables */
+        body.inverted {
+            --glow-magenta: #3372A1; /* Swap Magenta for Blue */
+            --space-bg: #f5f5f5;
+            --steel-blue: #E600FF;
+            --glass-panel: rgba(230, 0, 255, 0.05);
+            --border-white: rgba(0, 0, 0, 0.3);
+            --text-color: #1a001d;
+        }
 
+        /* --- Global Tweens & Animations --- */
+        * { transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal { animation: fadeIn 0.8s ease forwards; }
+
+        /* --- Layout --- */
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--space-bg);
-            background-image: radial-gradient(circle at 50% -20%, #2b0031 0%, transparent 50%);
-            color: white;
+            color: var(--text-color);
             margin: 0;
-            padding-bottom: 50px;
+            overflow-x: hidden;
         }
 
         header {
@@ -45,11 +57,43 @@
             box-shadow: 0 0 15px var(--glow-magenta);
             margin: 0 auto 1rem;
             display: flex; align-items: center; justify-content: center;
-            font-size: 0.7rem; letter-spacing: 2px;
+            font-size: 0.7rem; font-weight: bold;
         }
 
         h1 { font-size: 3rem; text-transform: uppercase; letter-spacing: 8px; margin: 0; }
-        .motto { color: var(--glow-magenta); font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase; margin-top: 10px; }
+        .motto { color: var(--glow-magenta); font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase; margin: 10px 0; }
+
+        .discord-btn {
+            display: inline-block;
+            margin: 15px 0;
+            padding: 8px 20px;
+            background: #5865F2; /* Discord Blurple */
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        .discord-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px #5865F2; }
+
+        /* --- Interface Controls --- */
+        .ui-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .invert-toggle {
+            background: var(--glow-magenta);
+            color: var(--space-bg);
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.7rem;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+        }
 
         main { max-width: 1200px; margin: 0 auto; padding: 20px; }
 
@@ -61,9 +105,11 @@
             margin-top: 3rem;
         }
 
+        section:hover { border-color: var(--glow-magenta); box-shadow: 0 0 20px rgba(230, 0, 255, 0.1); }
+
         h2 { font-size: 0.9rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 2rem; color: var(--steel-blue); border-left: 3px solid var(--glow-magenta); padding-left: 15px; }
 
-        /* --- MISSION TABLE (WITH RESULT) --- */
+        /* --- Tables & Cards --- */
         .mission-row {
             display: grid;
             grid-template-columns: 1.5fr 1fr 1fr 1fr 1.5fr 0.8fr;
@@ -71,148 +117,148 @@
             padding: 15px 0;
             font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            align-items: center;
         }
-        .mission-header { font-weight: bold; color: var(--steel-blue); border-bottom: 2px solid var(--border-white); }
-        
-        .res-badge {
-            padding: 4px 8px;
-            border-radius: 2px;
-            font-size: 0.65rem;
-            text-align: center;
-            font-weight: bold;
-            border: 1px solid currentColor;
-        }
-        .res-success { color: var(--success); }
-        .res-failure { color: var(--failure); }
-        .res-upcoming { color: var(--scheduled); }
+        .res-badge { padding: 4px 8px; border: 1px solid currentColor; font-size: 0.6rem; font-weight: bold; }
 
-        .mission-desc { grid-column: 1 / -1; text-transform: none; color: #aaa; padding-top: 10px !important; font-style: italic; }
-
-        /* --- TEST CARDS (WITH RESULT) --- */
         .test-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .test-card { border: 1px solid var(--border-white); padding: 15px; background: rgba(0,0,0,0.3); position: relative; }
-        .test-card h3 { font-size: 0.8rem; color: var(--glow-magenta); margin-top: 0; text-transform: uppercase; }
-        .test-label { font-size: 0.6rem; color: var(--steel-blue); display: block; margin-top: 8px; font-weight: bold; }
-        
-        .test-result-line {
-            margin-top: 15px;
-            padding-top: 10px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            font-weight: bold;
-            font-size: 0.7rem;
-        }
+        .test-card { border: 1px solid var(--border-white); padding: 15px; background: rgba(0,0,0,0.1); }
 
-        /* --- INTERACTIVE CHANGELOG --- */
+        /* --- Scrollable Devlog --- */
         .log-scroll-frame {
-            height: 450px;
+            height: 400px;
             overflow-y: auto;
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 10px;
+            border: 1px solid var(--border-white);
+            padding: 15px;
         }
-        details { border-bottom: 1px solid rgba(255,255,255,0.1); padding: 10px 0; }
-        summary { cursor: pointer; font-family: monospace; color: var(--glow-magenta); font-weight: bold; display: flex; justify-content: space-between; padding: 5px; }
+        details { border-bottom: 1px solid rgba(128,128,128,0.2); }
+        summary { cursor: pointer; padding: 10px; font-family: monospace; color: var(--glow-magenta); }
+        .log-content { padding: 15px; background: rgba(0,0,0,0.05); font-size: 0.85rem; }
         
-        .log-content { padding: 15px; font-size: 0.85rem; background: rgba(0,0,0,0.2); }
-        .log-cat { font-weight: bold; margin-top: 15px; display: block; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; }
-        .cat-added { color: var(--added-color); }
-        .cat-removed { color: var(--removed-color); }
-        .cat-notes { color: var(--steel-blue); }
+        /* Stats Ticker Feature */
+        .ticker {
+            background: var(--steel-blue);
+            color: white;
+            padding: 5px;
+            font-size: 0.7rem;
+            text-align: center;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
 
-        ul { margin: 5px 0 15px 20px; padding: 0; list-style-type: "— "; }
-        li { margin-bottom: 5px; color: #ccc; }
-
-        .booking-btn { border: 1px solid white; color: white; padding: 10px 25px; text-decoration: none; font-size: 0.8rem; letter-spacing: 2px; transition: 0.3s; display: inline-block; }
-        .booking-btn:hover { background: white; color: black; box-shadow: 0 0 15px white; }
+        footer { text-align: center; padding: 4rem 1rem; border-top: 1px solid var(--border-white); margin-top: 50px; }
 
         @media (max-width: 950px) { .mission-row { grid-template-columns: 1fr 1fr; } }
     </style>
 </head>
 <body>
 
-    <header>
+    <div class="ticker">
+        System Status: Nominal // Latency: 24ms // Uptime: 99.99% // Signal: Strong
+    </div>
+
+    <div class="ui-controls">
+        <button class="invert-toggle" onclick="toggleInvert()">INVERT VISUALS</button>
+    </div>
+
+    <header class="reveal">
         <div class="logo-box">GH-01</div>
         <h1>Galactic Horizon</h1>
         <p class="motto">Putting Space On The Horizon For All</p>
-        <p style="font-size: 0.7rem; opacity: 0.5;">EST. OCT 1, 2024</p>
+        
+        <a href="https://discord.gg/yourlink" class="discord-btn">JOIN MISSION CONTROL DISCORD</a>
+        
+        <p style="font-size: 0.7rem; opacity: 0.6;">ESTABLISHED OCTOBER 1, 2024</p>
     </header>
 
     <main>
 
-        <section id="missions">
-            <h2>Mission Manifest</h2>
-            <div class="mission-row mission-header">
-                <div>Mission</div><div>Vehicle</div><div>Launch Site</div><div>Landing Site</div><div>Date & Time</div><div>Result</div>
+        <section id="missions" class="reveal">
+            <h2>Upcoming Missions</h2>
+            <div class="mission-row" style="font-weight: bold; color: var(--steel-blue);">
+                <div>Mission</div><div>Vehicle</div><div>Launch Site</div><div>Landing Site</div><div>Date</div><div>Result</div>
             </div>
 
             <div class="mission-row">
-                <div>AFAA I - Orbital Link</div><div>Horizon Heavy</div><div>SLC-4E, CA</div><div>Droneship</div><div>Feb 7, 2026 11:05 CT</div>
-                <div><span class="res-badge res-success">SUCCESS</span></div>
-                <div class="mission-desc">Deployment of the first high-bandwidth constellation for Galactic Horizon. All satellites reached target orbit.</div>
+                <div>AFAA I - Orbital Link</div><div>Horizon Heavy</div><div>SLC-4E, CA</div><div>Droneship</div><div>Feb 7, 2026</div>
+                <div><span class="res-badge" style="color:var(--added-color)">SUCCESS</span></div>
             </div>
-
             <div class="mission-row">
-                <div>Pathfinder II</div><div>Nova-9</div><div>KSC Pad 39A</div><div>LZ-1, FL</div><div>Mar 15, 2026 09:00 ET</div>
-                <div><span class="res-badge res-upcoming">SCHEDULED</span></div>
-                <div class="mission-desc">Lunar south pole reconnaissance mission. Currently in final integration phase.</div>
+                <div>Pathfinder II</div><div>Nova-9</div><div>Pad 39A</div><div>LZ-1</div><div>Mar 15, 2026</div>
+                <div><span class="res-badge" style="color:var(--steel-blue)">PLANNED</span></div>
             </div>
         </section>
 
-        <section id="tests">
-            <h2>System Testing Lab</h2>
+        <section id="tests" class="reveal">
+            <h2>Upcoming Tests</h2>
             <div class="test-grid">
                 <div class="test-card">
-                    <span class="test-label">TEST</span><h3>Static Fire Alpha</h3>
-                    <span class="test-label">TEST ARTICLE</span><p>AFAA Booster B108</p>
-                    <span class="test-label">TYPE / SITE</span><p>Ignition / McGregor, TX</p>
-                    <div class="test-result-line">RESULT: <span style="color:var(--success)">FULL DURATION SUCCESS</span></div>
+                    <span style="font-size: 0.6rem; color: var(--steel-blue);">TEST ARTICLE: B108</span>
+                    <h3 style="margin: 5px 0;">Static Fire Alpha</h3>
+                    <p style="font-size: 0.7rem;">RESULT: <span style="color:var(--added-color)">PROPELLANT LOAD SUCCESS</span></p>
                 </div>
-
                 <div class="test-card">
-                    <span class="test-label">TEST</span><h3>Pressure Proof</h3>
-                    <span class="test-label">TEST ARTICLE</span><p>Cargo Bay S1</p>
-                    <span class="test-label">TYPE / SITE</span><p>Cryo Load / Starbase, TX</p>
-                    <div class="test-result-line">RESULT: <span style="color:var(--failure)">STRUCTURAL FAILURE @ 140% LOAD</span></div>
+                    <span style="font-size: 0.6rem; color: var(--steel-blue);">TEST ARTICLE: S24-B</span>
+                    <h3 style="margin: 5px 0;">Cryo-Proof Stage 2</h3>
+                    <p style="font-size: 0.7rem;">RESULT: <span style="color:var(--steel-blue)">PENDING FEB 10</span></p>
                 </div>
             </div>
         </section>
 
-        <section id="changelog">
-            <h2>Mission Logs (AFAA I)</h2>
+        <section id="devlog" class="reveal">
+            <h2>Devlog</h2>
             <div class="log-scroll-frame">
                 <details open>
-                    <summary>02.06.26 — Data Architecture V2</summary>
+                    <summary>02.06.26 — Command Center v7.0 Deployment</summary>
                     <div class="log-content">
-                        <span class="log-cat cat-added">Added:</span>
+                        <b style="color:var(--added-color)">Added:</b>
                         <ul>
-                            <li>Result tracking for Missions and Lab Tests.</li>
-                            <li>Color-coded status badges for instant readability.</li>
-                            <li>Expanded Mission Manifest grid to include success/failure metrics.</li>
+                            <li>Global "Tween" transitions for all UI elements.</li>
+                            <li>Interactive Color Inversion Module.</li>
+                            <li>Discord integration in header and footer.</li>
                         </ul>
-                        <span class="log-cat cat-notes">Additional Notes:</span>
+                        <b style="color:var(--steel-blue)">Additional Notes:</b>
                         <ul>
-                            <li>"Result" tab styling is synchronized across all modules.</li>
+                            <li>Renamed manifest and testing modules for clarity.</li>
                         </ul>
                     </div>
                 </details>
-                <details><summary>02.05.26 — Logic Update</summary><div class="log-content"><ul><li>Placeholder...</li></ul></div></details>
-                <details><summary>01.05.26 — INITIAL LAUNCH SUCCESS</summary><div class="log-content"><ul><li>Mission Active.</li></ul></div></details>
+                <details>
+                    <summary>02.01.26 — Stability Patch</summary>
+                    <div class="log-content"><ul><li>Optimized scroll performance for legacy browsers.</li></ul></div>
+                </details>
             </div>
-        </section>
-
-        <section id="events" style="text-align: center;">
-            <h2>Launch Viewing & Events</h2>
-            <p>Join the Horizon community for upcoming orbital events.</p>
-            <br>
-            <a href="https://forms.google.com" class="booking-btn">BOOK MISSION PASS</a>
         </section>
 
     </main>
 
-    <footer style="text-align: center; padding: 3rem; font-size: 0.7rem; opacity: 0.5; letter-spacing: 2px;">
-        &copy; 2026 GALACTIC HORIZON | MISSION CONTROL SYSTEMS
+    <footer class="reveal">
+        <p>&copy; 2026 Galactic Horizon</p>
+        <a href="https://discord.gg/yourlink" class="discord-btn">JOIN DISCORD</a>
+        <p style="font-size: 0.6rem; margin-top: 20px; opacity: 0.5; letter-spacing: 2px;">ALL SYSTEMS NOMINAL // GH-OS v7.0</p>
     </footer>
+
+    <script>
+        // Toggle Inverted Visuals
+        function toggleInvert() {
+            document.body.classList.toggle('inverted');
+        }
+
+        // Scroll Reveal Tweening
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            observer.observe(section);
+        });
+    </script>
 
 </body>
 </html>
