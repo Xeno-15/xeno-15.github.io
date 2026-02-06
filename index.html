@@ -6,222 +6,227 @@
     <title>Galactic Horizon | Mission Control</title>
     <style>
         :root {
-            /* The "Blinding" Magenta is now an accent/glow color */
             --glow-magenta: #E600FF;
-            /* A much darker, desaturated version for the background */
-            --space-bg: #1a001d; 
+            --space-bg: #0d000e; 
             --steel-blue: #3372A1;
-            --glass-blue: rgba(51, 114, 161, 0.25);
-            --border-white: rgba(255, 255, 255, 0.8);
-            --text-main: #ffffff;
+            --glass-blue: rgba(51, 114, 161, 0.2);
+            --border-white: rgba(255, 255, 255, 0.7);
         }
 
+        /* --- Scrollbar Styling --- */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--space-bg); }
+        ::-webkit-scrollbar-thumb { 
+            background: var(--steel-blue); 
+            border-radius: 10px; 
+            border: 2px solid var(--space-bg);
+        }
+        ::-webkit-scrollbar-thumb:hover { background: var(--glow-magenta); }
+
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: 'Segoe UI', Roboto, sans-serif;
             background-color: var(--space-bg);
             background-image: 
-                radial-gradient(circle at 20% 30%, rgba(230, 0, 255, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(51, 114, 161, 0.15) 0%, transparent 40%);
-            background-attachment: fixed;
-            color: var(--text-main);
+                radial-gradient(circle at 10% 10%, rgba(230, 0, 255, 0.1) 0%, transparent 30%),
+                radial-gradient(circle at 90% 90%, rgba(51, 114, 161, 0.1) 0%, transparent 30%);
+            color: white;
             margin: 0;
-            padding: 0;
             line-height: 1.6;
         }
 
-        /* 1. Logo & Header Section */
         header {
             text-align: center;
-            padding: 4rem 1rem;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.4), transparent);
+            padding: 3rem 1rem;
+            border-bottom: 1px solid var(--border-white);
         }
 
-        .logo-container {
-            width: 100px;
-            height: 100px;
+        .logo-box {
+            width: 80px;
+            height: 80px;
             border: 2px solid var(--glow-magenta);
             box-shadow: 0 0 15px var(--glow-magenta);
-            margin: 0 auto 1.5rem;
+            margin: 0 auto 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: var(--space-bg);
-            border-radius: 50%;
+            font-weight: bold;
+            font-size: 0.8rem;
+            border-radius: 5px;
         }
 
-        h1 { 
-            font-size: 3.5rem; 
-            margin: 0; 
-            text-transform: uppercase; 
-            letter-spacing: 6px;
-            color: white;
-            text-shadow: 0 0 20px rgba(230, 0, 255, 0.6);
-        }
+        h1 { font-size: 2.8rem; text-transform: uppercase; letter-spacing: 5px; margin: 0; }
+        .motto { color: var(--glow-magenta); text-transform: uppercase; font-size: 0.9rem; letter-spacing: 2px; }
 
-        .motto { 
-            font-size: 1.1rem; 
-            color: var(--glow-magenta); 
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            font-weight: 300;
-        }
-
-        /* Nav Bar with Transparency */
-        nav {
+        /* --- Additional Feature: Mission Stats --- */
+        .mission-stats {
             display: flex;
             justify-content: center;
-            gap: 40px;
-            padding: 1.2rem;
-            background: rgba(0, 0, 0, 0.3);
+            gap: 30px;
+            margin-top: 20px;
+            font-family: monospace;
+        }
+        .stat-item { border: 1px solid var(--steel-blue); padding: 5px 15px; background: rgba(0,0,0,0.5); }
+        .status-dot { color: #00ff00; animation: blink 1s infinite; }
+
+        @keyframes blink { 50% { opacity: 0; } }
+
+        main { max-width: 950px; margin: 2rem auto; padding: 0 20px; }
+
+        section {
+            background: var(--glass-blue);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-white);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            border: 1px solid var(--border-white);
+            padding: 2rem;
+            margin-bottom: 3rem;
+            border-radius: 8px;
         }
 
-        nav a { color: white; text-decoration: none; font-size: 0.9rem; letter-spacing: 1px; }
-        nav a:hover { color: var(--glow-magenta); }
+        /* --- Scrollable Changelog --- */
+        .changelog-container {
+            height: 400px; /* Fixed height */
+            overflow-y: scroll; /* Enables internal scroll */
+            padding-right: 15px;
+            margin-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
 
-        main { max-width: 900px; margin: 3rem auto; padding: 0 20px; }
+        .log-entry {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
 
-        /* Smoothed out Frames (Glassmorphism) */
-        section { 
-            margin-bottom: 4rem; 
-            padding: 2.5rem;
-            border: 1px solid var(--border-white);
-            background: var(--glass-blue);
-            backdrop-filter: blur(8px);
+        .log-date { color: var(--glow-magenta); font-family: monospace; font-weight: bold; }
+
+        /* --- Progress Bar --- */
+        .progress-container {
+            background: rgba(255,255,255,0.1);
+            height: 10px;
+            width: 100%;
+            border-radius: 5px;
+            margin: 10px 0 20px 0;
+        }
+        .progress-fill {
+            background: linear-gradient(to right, var(--steel-blue), var(--glow-magenta));
+            height: 100%;
+            width: 85%; /* Current project completion */
+            border-radius: 5px;
+            box-shadow: 0 0 10px var(--glow-magenta);
+        }
+
+        .event-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .booking-link {
+            display: block;
+            background: var(--glow-magenta);
+            color: white;
+            text-align: center;
+            padding: 12px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 15px;
             border-radius: 4px;
         }
 
-        h2 { 
-            border-left: 4px solid var(--glow-magenta);
-            padding-left: 15px;
-            text-transform: uppercase;
-            margin-bottom: 2rem;
-            letter-spacing: 2px;
-        }
-
-        /* 3. Changelog Styles */
-        .log-entry {
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding: 1.5rem 0;
-            transition: transform 0.2s;
-        }
-
-        .log-entry:hover { transform: translateX(10px); }
-
-        .log-date { 
-            color: var(--glow-magenta); 
-            font-weight: bold; 
-            font-family: monospace; 
-            font-size: 1.1rem;
-        }
-
-        /* 4. Events Section */
-        .event-card {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-
-        .event-images {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .event-images img {
-            width: 100%;
-            height: 100px;
-            object-fit: cover;
-            border: 1px solid var(--border-white);
-            opacity: 0.8;
-        }
-
-        .booking-btn {
-            display: inline-block;
-            border: 1px solid var(--glow-magenta);
-            color: white;
-            padding: 12px 30px;
-            text-decoration: none;
-            margin-top: 20px;
-            background: rgba(230, 0, 255, 0.1);
-            transition: 0.3s;
-        }
-
-        .booking-btn:hover {
-            background: var(--glow-magenta);
-            box-shadow: 0 0 20px var(--glow-magenta);
-        }
-
-        @media (max-width: 768px) { .event-card { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { .event-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo-container">
-            <span style="font-size: 0.7rem;">GH LOGO</span> 
-        </div>
+        <div class="logo-box">LOGO</div>
         <h1>Galactic Horizon</h1>
         <p class="motto">Putting Space On The Horizon For All</p>
-        <p style="opacity: 0.5; font-size: 0.8rem;">Est. Oct 1, 2024</p>
+        
+        <div class="mission-stats">
+            <div class="stat-item">MISSION TIME: <span id="clock">00:00:00</span></div>
+            <div class="stat-item">STATUS: <span class="status-dot">●</span> NOMINAL</div>
+        </div>
     </header>
 
-    <nav>
-        <a href="#changelog">// AFAA I LOGS</a>
-        <a href="#events">// EVENTS</a>
-    </nav>
-
     <main>
+        <div style="margin-bottom: 10px; font-size: 0.8rem; letter-spacing: 1px;">AFAA I DEPLOYMENT PROGRESS: 85%</div>
+        <div class="progress-container"><div class="progress-fill"></div></div>
+
         <section id="changelog">
-            <h2>Changelog: AFAA I</h2>
-            
-            <div class="log-entry">
-                <span class="log-date">02.06.26</span>
-                <p>Visual UI overhaul completed. Switched to high-contrast space-theme with glassmorphism frames.</p>
-            </div>
-
-            <div class="log-entry">
-                <span class="log-date">02.05.26</span>
-                <p>Telemetry sync successful. Orbital parameters for AFAA I within 0.02% margin of error.</p>
-            </div>
-
-            <div class="log-entry" style="opacity: 0.5; border: none; text-align: center;">
-                <em>Entries for Jan 6 - Feb 4 archived in Mission Control...</em>
-            </div>
-
-            <div class="log-entry" style="border-left: 4px solid gold;">
-                <span class="log-date" style="color: gold;">01.05.26 (LAUNCH)</span>
-                <p><strong>AFAA I DEPLOYMENT:</strong> Successful ignition and stage separation. Software operational.</p>
+            <h2 style="margin-top:0;">AFAA I MISSION LOGS</h2>
+            <div class="changelog-container">
+                <div class="log-entry">
+                    <div class="log-date">FEB 06, 2026</div>
+                    <p>Implemented internal scroll architecture for log data. UI contrast optimized for deep-space readability.</p>
+                </div>
+                <div class="log-entry">
+                    <div class="log-date">FEB 05, 2026</div>
+                    <p>Propulsion simulation #442 passed. Integration with navigation sub-routines complete.</p>
+                </div>
+                <div class="log-entry">
+                    <div class="log-date">FEB 04, 2026</div>
+                    <p>Star-tracker calibration finished. Sensor sensitivity adjusted for solar flare interference.</p>
+                </div>
+                <div class="log-entry">
+                    <div class="log-date">FEB 01, 2026</div>
+                    <p>Monthly system stress test. All software kernels reporting 99.9% uptime.</p>
+                </div>
+                <div class="log-entry">
+                    <div class="log-date">JAN 28, 2026</div>
+                    <p>Updated encryption protocols for ground-to-satellite communication links.</p>
+                </div>
+                <div class="log-entry">
+                    <div class="log-date">JAN 22, 2026</div>
+                    <p>Manual override testing conducted. Pilot-assist AI successfully decoupled and re-engaged.</p>
+                </div>
+                <div class="log-entry">
+                    <div class="log-date">JAN 18, 2026</div>
+                    <p>Compressed legacy database files. Recovered 14% storage capacity on AFAA I local drives.</p>
+                </div>
+                <div class="log-entry">
+                    <div class="log-date">JAN 12, 2026</div>
+                    <p>External hull camera feed integrated into the Mission Control dashboard.</p>
+                </div>
+                <div class="log-entry">
+                    <div class="log-date">JAN 08, 2026</div>
+                    <p>Post-launch thermal check: All components within safe operating temperature ranges.</p>
+                </div>
+                <div class="log-entry" style="border-bottom: 2px solid var(--glow-magenta);">
+                    <div class="log-date">JAN 05, 2026</div>
+                    <p><strong>AFAA I DEPLOYMENT SUCCESSFUL.</strong> First signal received at 04:00 UTC.</p>
+                </div>
             </div>
         </section>
 
         <section id="events">
-            <div class="event-card">
+            <div class="event-grid">
                 <div>
-                    <h2>Public Briefing</h2>
-                    <p><strong>Date:</strong> March 12, 2026</p>
-                    <p>Live technical demonstration of the AFAA I navigation software and the Galactic Horizon roadmap.</p>
-                    <a href="https://forms.google.com" class="booking-btn">Reserve Your Seat</a>
+                    <h2>The Horizon Expo</h2>
+                    <p><strong>DATES:</strong> March 12, 2026</p>
+                    <p>Join Galactic Horizon for a live demonstration of AFAA I capabilities. We will be showcasing real-time telemetry from the mission.</p>
+                    <a href="https://forms.google.com" class="booking-link">BOOK MISSION PASS</a>
                 </div>
-                <div>
-                    <div class="event-images">
-                        <img src="https://via.placeholder.com/150" alt="Space Hardware">
-                        <img src="https://via.placeholder.com/150" alt="Team Lab">
-                        <img src="https://via.placeholder.com/150" alt="Launch Pad">
-                        <img src="https://via.placeholder.com/150" alt="Control Room">
+                <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 5px;">
+                    <p style="font-size: 0.8rem; color: var(--steel-blue);">[ MISSION MEDIA PREVIEW ]</p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <div style="height:60px; background:#222; border: 1px solid var(--border-white);"></div>
+                        <div style="height:60px; background:#222; border: 1px solid var(--border-white);"></div>
+                        <div style="height:60px; background:#222; border: 1px solid var(--border-white);"></div>
+                        <div style="height:60px; background:#222; border: 1px solid var(--border-white);"></div>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer style="text-align: center; padding: 4rem; opacity: 0.4; font-size: 0.8rem;">
-        &copy; 2026 Galactic Horizon. All Systems Nominal.
+    <footer style="text-align: center; padding: 3rem; font-size: 0.8rem; opacity: 0.5;">
+        GALACTIC HORIZON EST. 10.01.2024 | DESIGNED FOR SPACE
     </footer>
+
+    <script>
+        // Feature: Live Mission Clock (UTC)
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toISOString().substr(11, 8);
+            document.getElementById('clock').textContent = timeString + " UTC";
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
 
 </body>
 </html>
