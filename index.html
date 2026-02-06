@@ -3,163 +3,213 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Company Portal</title>
+    <title>Galactic Horizon | Official Site</title>
     <style>
         :root {
-            --primary: #2563eb;
-            --dark: #1e293b;
-            --light: #f8fafc;
-            --accent: #f1f5f9;
+            --bg-color: #E600FF;
+            --frame-color: #3372A1;
+            --border-white: #FFFFFF;
+            --text-color: #FFFFFF;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
+            font-family: 'Courier New', Courier, monospace; /* Space/Tech feel */
+            background-color: var(--bg-color);
+            color: var(--text-color);
             margin: 0;
-            background-color: var(--light);
-            color: var(--dark);
+            padding: 0;
+            line-height: 1.6;
         }
 
+        /* 1. Logo & Header Section */
         header {
-            background: white;
-            padding: 2rem 10%;
-            border-bottom: 1px solid #e2e8f0;
             text-align: center;
+            padding: 3rem 1rem;
+            border-bottom: 4px solid var(--border-white);
+            background: rgba(0, 0, 0, 0.2); /* Slight darkening for readability */
         }
 
-        .logo {
-            max-width: 150px;
-            height: auto;
-            margin-bottom: 1rem;
+        .logo-placeholder {
+            width: 120px;
+            height: 120px;
+            border: 3px solid var(--border-white);
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--frame-color);
         }
 
-        .company-info h1 { margin: 0; font-size: 2.5rem; }
-        .motto { font-style: italic; color: #64748b; }
-        .founding-date { font-size: 0.9rem; color: #94a3b8; }
+        h1 { font-size: 3rem; margin: 0; text-transform: uppercase; letter-spacing: 4px; }
+        .motto { font-size: 1.2rem; margin: 10px 0; letter-spacing: 1px; }
+        .founding-date { font-size: 0.8rem; opacity: 0.8; }
 
+        /* Navigation */
         nav {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 30px;
             padding: 1rem;
-            background: var(--dark);
+            background: var(--frame-color);
+            border-bottom: 2px solid var(--border-white);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        nav a { color: white; text-decoration: none; font-weight: bold; }
+        nav a { color: white; text-decoration: none; font-weight: bold; text-transform: uppercase; }
 
-        main { max-width: 900px; margin: 2rem auto; padding: 0 20px; }
+        main { max-width: 1000px; margin: 2rem auto; padding: 0 20px; }
 
-        section { margin-bottom: 4rem; }
-
-        h2 { border-bottom: 2px solid var(--primary); display: inline-block; margin-bottom: 1.5rem; }
-
-        /* Changelog Styling */
-        .changelog-entry {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            border-left: 4px solid var(--primary);
+        section { 
+            margin-bottom: 5rem; 
+            padding: 2rem;
+            border: 3px solid var(--border-white);
+            background: rgba(51, 114, 161, 0.4); /* Transparent frame color */
         }
 
-        .log-date { font-weight: bold; color: var(--primary); font-size: 0.9rem; }
-        .log-tag { 
-            background: #dbeafe; color: #1e40af; 
-            padding: 2px 8px; border-radius: 4px; 
-            font-size: 0.75rem; text-transform: uppercase;
+        h2 { 
+            background: var(--border-white); 
+            color: var(--frame-color); 
+            padding: 5px 20px; 
+            display: inline-block; 
+            margin-top: -45px; /* Pulls heading up onto the border */
         }
 
-        /* Events Styling */
-        .event-card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        /* 3. Changelog Template */
+        .project-header {
+            border-bottom: 2px solid var(--border-white);
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+        }
+
+        .log-entry {
+            background: rgba(255, 255, 255, 0.1);
+            border-left: 5px solid var(--border-white);
+            padding: 1rem 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .log-date { font-weight: bold; color: #fff; text-decoration: underline; }
+        .log-details { margin-top: 10px; }
+
+        /* 4. Events Section */
+        .event-grid {
             display: grid;
-            grid-template-columns: 1fr 2fr;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
         }
 
-        .event-image { background: #cbd5e1; width: 100%; height: 100%; object-fit: cover; }
+        .event-photo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
 
-        .event-content { padding: 1.5rem; }
+        .event-photo-grid img {
+            width: 100%;
+            border: 2px solid var(--border-white);
+        }
 
-        .btn {
-            display: inline-block;
-            background: var(--primary);
-            color: white;
-            padding: 10px 20px;
+        .booking-btn {
+            display: block;
+            text-align: center;
+            background: var(--border-white);
+            color: var(--bg-color);
+            padding: 15px;
+            font-weight: bold;
             text-decoration: none;
-            border-radius: 6px;
-            margin-top: 1rem;
-            transition: opacity 0.2s;
+            margin-top: 20px;
+            text-transform: uppercase;
+            transition: 0.3s;
         }
 
-        .btn:hover { opacity: 0.9; }
+        .booking-btn:hover { background: var(--frame-color); color: white; }
 
-        @media (max-width: 600px) {
-            .event-card { grid-template-columns: 1fr; }
+        @media (max-width: 768px) {
+            .event-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <img src="https://via.placeholder.com/150x150?text=LOGO" alt="Company Logo" class="logo">
-        
-        <div class="company-info">
-            <h1>TechVanguard Solutions</h1>
-            <p class="founding-date">Established: January 12, 2024</p>
-            <p class="motto">"Coding the future, one commit at a time."</p>
+        <div class="logo-placeholder">
+            <span>LOGO</span> 
         </div>
+        
+        <h1>Galactic Horizon</h1>
+        <p class="motto">"Putting Space On The Horizon For All"</p>
+        <p class="founding-date">EST. OCTOBER 1, 2024</p>
     </header>
 
     <nav>
-        <a href="#changelog">Changelog</a>
-        <a href="#events">Events & Booking</a>
+        <a href="#changelog">Project: AFAA I</a>
+        <a href="#events">Upcoming Events</a>
     </nav>
 
     <main>
         <section id="changelog">
-            <h2>System Changelog</h2>
-            
-            <div class="changelog-entry">
-                <div class="log-date">February 6, 2026</div>
-                <h3>Version 2.1 Update <span class="log-tag">Update</span></h3>
-                <ul>
-                    <li>Integrated AI-driven analytics dashboard.</li>
-                    <li>Refactored backend API for 30% faster response times.</li>
-                    <li>Fixed CSS bug affecting mobile navigation.</li>
-                </ul>
+            <h2>Changelog: AFAA I</h2>
+            <div class="project-header">
+                <h3>Project Status: Active Development</h3>
+                <p>Launch Date: January 5, 2026</p>
             </div>
 
-            <div class="changelog-entry">
-                <div class="log-date">January 20, 2026</div>
-                <h3>Initial Deployment <span class="log-tag">Launch</span></h3>
-                <p>Successfully migrated all legacy data to the new cloud infrastructure.</p>
+            <div class="log-entry">
+                <div class="log-date">February 6, 2026 (Today)</div>
+                <div class="log-details">
+                    • Finalized telemetry synchronization for orbital phase.<br>
+                    • Updated UI components to match new Galactic Horizon branding.
+                </div>
+            </div>
+
+            <div class="log-entry">
+                <div class="log-date">February 5, 2026</div>
+                <div class="log-details">
+                    • Optimized propulsion data logs.<br>
+                    • Resolved heat shield sensor discrepancy.
+                </div>
+            </div>
+
+            <div style="text-align: center; margin: 20px 0; opacity: 0.6;">
+                [ ... Daily Logs: Jan 6 to Feb 4 ... ]
+            </div>
+
+            <div class="log-entry" style="border-color: gold;">
+                <div class="log-date">January 5, 2026</div>
+                <div class="log-details">
+                    <strong>INITIAL LAUNCH:</strong> Project AFAA I successfully deployed to testing environment.
+                </div>
             </div>
         </section>
 
-        <hr>
-
         <section id="events">
-            <h2>Upcoming Events</h2>
-            
-            <div class="event-card">
-                <img src="https://via.placeholder.com/400x300?text=Workshop+Photo" alt="Event" class="event-image">
-                <div class="event-content">
-                    <h3>Summer Dev Summit 2026</h3>
-                    <p><strong>Date:</strong> July 15-17, 2026</p>
-                    <p>Join us for a three-day deep dive into scalable architecture and team leadership. We'll have guest speakers from across the industry.</p>
-                    <p><em>More photos coming soon!</em></p>
-                    <a href="https://forms.google.com" class="btn">Book Your Spot</a>
+            <h2>Space Events</h2>
+            <div class="event-grid">
+                <div>
+                    <h3>Horizon Expo 2026</h3>
+                    <p><strong>DATES:</strong> March 12 - 15, 2026</p>
+                    <p>Join us for the first public unveiling of the AFAA I hardware specs and our vision for 2027.</p>
+                    
+                    <div class="event-photo-grid">
+                        <img src="https://via.placeholder.com/150" alt="Event Photo 1">
+                        <img src="https://via.placeholder.com/150" alt="Event Photo 2">
+                    </div>
+                </div>
+
+                <div style="border-left: 2px solid white; padding-left: 20px;">
+                    <h3>Booking & Registration</h3>
+                    <p>Register via our official Google Form to secure your seat at the Expo.</p>
+                    <a href="https://forms.google.com" class="booking-btn">Open Booking Form</a>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer style="text-align: center; padding: 2rem; color: #94a3b8;">
-        &copy; 2026 TechVanguard Solutions
+    <footer style="text-align: center; padding: 3rem; opacity: 0.7;">
+        &copy; 2026 Galactic Horizon. All Systems Nominal.
     </footer>
 
 </body>
