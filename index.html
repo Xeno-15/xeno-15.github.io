@@ -6,7 +6,8 @@
     <title>Galactic Horizon | Mission Control</title>
     <style>
         :root {
-            --glow-magenta: #E600FF;
+            /* --- COLOR PALETTE (CHANGE THESE HEX CODES TO TWEAK THE THEME) --- */
+            --glow-magenta: #E600FF; 
             --space-bg: #0a000b; 
             --steel-blue: #3372A1;
             --glass-panel: rgba(51, 114, 161, 0.15);
@@ -16,6 +17,7 @@
             --removed-color: #ff4b4b;
         }
 
+        /* --- THEME INVERSION SETTINGS --- */
         body.inverted {
             --glow-magenta: #3372A1;
             --space-bg: #f5f5f5;
@@ -25,6 +27,7 @@
             --text-color: #1a001d;
         }
 
+        /* TWEENS & SMOOTHING */
         * { transition: background 0.4s, color 0.4s, border 0.4s, box-shadow 0.4s; }
 
         body {
@@ -35,7 +38,7 @@
             overflow-x: hidden;
         }
 
-        /* --- UI Elements --- */
+        /* --- TOP TICKER BAR --- */
         .ticker-bar {
             background: var(--steel-blue);
             color: white;
@@ -46,6 +49,9 @@
             text-transform: uppercase;
             display: flex;
             justify-content: space-around;
+            position: sticky;
+            top: 0;
+            z-index: 1001;
         }
 
         .mission-timer {
@@ -55,6 +61,7 @@
             text-shadow: 0 0 10px var(--glow-magenta);
         }
 
+        /* --- UI BUTTONS --- */
         .ui-controls { position: fixed; top: 50px; right: 20px; z-index: 1000; }
         .invert-toggle {
             background: var(--glow-magenta);
@@ -66,9 +73,11 @@
             font-size: 0.6rem;
             text-transform: uppercase;
             letter-spacing: 1px;
+            border-radius: 2px;
         }
 
         header { text-align: center; padding: 4rem 1rem 2rem; border-bottom: 1px solid var(--border-white); }
+        
         .logo-box {
             width: 60px; height: 60px;
             border: 1px solid var(--glow-magenta);
@@ -85,12 +94,13 @@
             display: inline-block;
             margin: 15px 0;
             padding: 10px 25px;
-            background: #5865F2;
+            background: #5865F2; /* DISCORD BLUE */
             color: white;
             text-decoration: none;
             font-size: 0.7rem;
             font-weight: bold;
             letter-spacing: 1px;
+            border-radius: 4px;
         }
 
         main { max-width: 1100px; margin: 0 auto; padding: 20px; }
@@ -110,7 +120,7 @@
 
         h2 { font-size: 0.9rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 2rem; color: var(--steel-blue); border-left: 3px solid var(--glow-magenta); padding-left: 15px; }
 
-        /* --- Sections Style --- */
+        /* --- TABLE & GRID LAYOUTS --- */
         .mission-row {
             display: grid;
             grid-template-columns: 1.5fr 1fr 1fr 1fr 1.5fr 0.8fr;
@@ -136,15 +146,18 @@
 
         footer { text-align: center; padding: 4rem 1rem; border-top: 1px solid var(--border-white); margin-top: 50px; }
 
-        @media (max-width: 950px) { .mission-row { grid-template-columns: 1fr 1fr; } .event-flex { flex-direction: column; } }
+        @media (max-width: 950px) { 
+            .mission-row { grid-template-columns: 1fr 1fr; } 
+            .event-flex { flex-direction: column; }
+        }
     </style>
 </head>
 <body>
 
     <div class="ticker-bar">
-        <div>STATUS: NOMINAL</div>
+        <div>STATUS: NO MISSION AVAILABLE</div>
         <div>MISSION ELAPSED: <span id="mission-clock" class="mission-timer">00:00:00:00</span></div>
-        <div>STATION: FLORIDA_USA</div>
+        <div>LAUNCH SITE: TBD</div>
     </div>
 
     <div class="ui-controls">
@@ -153,10 +166,14 @@
 
     <header class="reveal">
         <div class="logo-box">GH</div>
+        
         <h1>Galactic Horizon</h1>
+        
         <p class="motto">Putting Space On The Horizon For All</p>
-        <a href="https://discord.gg/invite" class="discord-btn">JOIN DISCORD SERVER</a>
-        <p style="font-size: 0.6rem; opacity: 0.5; margin-top: 15px;">EST. OCT 1, 2024</p>
+        
+        <a href="https://discord.gg/BMkCAT3EXv" class="discord-btn">JOIN OUR DISCORD</a>
+        
+        <p style="font-size: 0.6rem; opacity: 0.5; margin-top: 15px;">ESTABLISHED OCTOBER 1, 2024</p>
     </header>
 
     <main>
@@ -166,25 +183,34 @@
             <div class="mission-row" style="color: var(--steel-blue); font-weight: bold;">
                 <div>Mission</div><div>Vehicle</div><div>Launch Site</div><div>Landing Site</div><div>Date</div><div>Result</div>
             </div>
+
             <div class="mission-row">
-                <div>AFAA I</div><div>Horizon Heavy</div><div>SLC-4E</div><div>OCISLY</div><div>FEB 6, 2026</div>
+                <div>Helios I Cert Flight 1</div>
+                <div>Helios I</div>
+                <div>GLC-03</div>
+                <div>Nil</div>
+                <div>TBD Q2 2026 </div>
                 <div style="color: var(--added-color);">SUCCESS</div>
             </div>
-        </section>
+            
+            </section>
 
         <section id="upcoming-tests" class="reveal">
             <h2>Upcoming Tests</h2>
             <div class="test-grid">
+                
                 <div class="test-card">
-                    <span style="font-size: 0.6rem; color: var(--steel-blue);">B108-ALPHA</span>
-                    <h3>Static Fire</h3>
-                    <p style="font-size: 0.7rem;">RESULT: <span style="color:var(--added-color)">COMPLETE</span></p>
+                    <span style="font-size: 0.6rem; color: var(--steel-blue);">TestSite: Sugarloaf, Florida</span>
+                    <h3>PG-3A HOT-FIRE</h3>
+                    <p style="font-size: 0.7rem;">RESULT: <span style="color:var(--added-color)">PENDING</span></p>
                 </div>
+
                 <div class="test-card">
-                    <span style="font-size: 0.6rem; color: var(--steel-blue);">S24-B</span>
-                    <h3>Cryo Loading</h3>
+                    <span style="font-size: 0.6rem; color: var(--steel-blue);">TestSite: Sugarloaf, Florida</span>
+                    <h3>PG-3A FULL HOT-FIRE</h3>
                     <p style="font-size: 0.7rem;">RESULT: <span style="color:var(--steel-blue)">PENDING</span></p>
                 </div>
+
             </div>
         </section>
 
@@ -192,11 +218,13 @@
             <h2>Upcoming Events</h2>
             <div class="event-flex">
                 <div style="flex: 1;">
-                    <h3>Horizon Expo 2026</h3>
-                    <p style="font-size: 0.9rem; color: #ccc;"><strong>DATES:</strong> March 12-15, 2026</p>
-                    <p style="font-size: 0.85rem;">Live demonstration of the AFAA constellation and public Q&A with the engineering team. Booking via Google Forms below.</p>
-                    <a href="https://forms.google.com" class="discord-btn" style="background: var(--glow-magenta);">BOOK YOUR EVENT PASS</a>
+                    <h3>Take A Look Over The Horizon 2026</h3>
+                    <p style="font-size: 0.9rem; color: #ccc;"><strong>DATES:</strong> March 9-16, 2026</p>
+                    <p style="font-size: 0.85rem;">A look into the future of Galactic Horizon. RSVP bookable via Google Forms below.</p>
+                    
+                    <a href="https://forms.google.com" class="discord-btn" style="background: var(--glow-magenta);">BOOK YOUR EVENT PASS NOW!</a>
                 </div>
+                
                 <div class="event-img-strip">
                     <div></div><div></div><div></div>
                 </div>
@@ -206,36 +234,39 @@
         <section id="devlog" class="reveal">
             <h2>Devlog</h2>
             <div class="log-scroll-frame">
+                
                 <details open>
-                    <summary>02.06.26 — Command Center v8.0</summary>
+                    <summary>02.05.26 — AFAA I UPDATE </summary>
                     <div class="log-content">
                         <span class="log-cat" style="color:var(--added-color)">Added:</span>
                         <ul>
-                            <li>Real-time Mission Elapsed Timer (T+).</li>
-                            <li>Restored Upcoming Events module.</li>
-                            <li>Renamed sections to "Upcoming Missions" and "Upcoming Tests".</li>
+                            <li> Engine Plume Usability.</li>
+                            <li> Cryogenic System, Fuel System, Vent System.</li>
+                            <li> Updates to landing system..</li>
                         </ul>
                         <span class="log-cat" style="color:var(--steel-blue)">Additional Notes:</span>
                         <ul>
-                            <li>UI Inversion logic stabilized for light/dark mode transitions.</li>
+                            <li>Removed old ascent controller (new one coming in future).</li>
+                            <li>Removed old boostback system (new one unknown).</li>
                         </ul>
                     </div>
                 </details>
-            </div>
+
+                </div>
         </section>
 
     </main>
 
     <footer>
         <p>&copy; 2026 Galactic Horizon</p>
-        <a href="https://discord.gg/invite" class="discord-btn">JOIN DISCORD</a>
-        <p style="font-size: 0.6rem; opacity: 0.4; margin-top: 20px;">MISSION CONTROL SYSTEMS // V8.0</p>
+        <a href="https://discord.gg/BMkCAT3EXv" class="discord-btn">JOIN DISCORD</a>
+        <p style="font-size: 0.6rem; opacity: 0.4; margin-top: 20px;">MISSION CONTROL SYSTEMS // V9.0</p>
     </footer>
 
     <script>
-        // MISSION TIMER LOGIC
-        // Start Date: Feb 6, 2026, 12:15:00 PM EST
-        const missionStart = new Date("February 6, 2026 12:15:00 GMT-0500").getTime();
+        /* --- MISSION TIMER LOGIC --- */
+        // CHANGE THIS DATE TO YOUR MISSION START TIME
+        const missionStart = new Date("Janurary 1, 2026 00:00:00 GMT-0500").getTime();
 
         function updateMissionTimer() {
             const now = new Date().getTime();
@@ -246,7 +277,6 @@
             const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-            // Format with leading zeros
             const fD = String(days).padStart(2, '0');
             const fH = String(hours).padStart(2, '0');
             const fM = String(minutes).padStart(2, '0');
@@ -256,10 +286,10 @@
         }
         setInterval(updateMissionTimer, 1000);
 
-        // UI INVERSION
+        /* --- UI THEME TOGGLE --- */
         function toggleInvert() { document.body.classList.toggle('inverted'); }
 
-        // SCROLL REVEAL TWEENS
+        /* --- SCROLL REVEAL LOGIC --- */
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) { entry.target.classList.add('visible'); }
