@@ -11,8 +11,11 @@
             --steel-blue: #3372A1;
             --glass-panel: rgba(51, 114, 161, 0.15);
             --border-white: rgba(255, 255, 255, 0.4);
-            --added-color: #00ffaa; /* Tech Green for 'Added' */
-            --removed-color: #ff4b4b; /* Alert Red for 'Removed' */
+            --added-color: #00ffaa;
+            --removed-color: #ff4b4b;
+            --success: #00ffaa;
+            --failure: #ff4b4b;
+            --scheduled: #3372A1;
         }
 
         /* --- Scrollbar --- */
@@ -48,7 +51,7 @@
         h1 { font-size: 3rem; text-transform: uppercase; letter-spacing: 8px; margin: 0; }
         .motto { color: var(--glow-magenta); font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase; margin-top: 10px; }
 
-        main { max-width: 1100px; margin: 0 auto; padding: 20px; }
+        main { max-width: 1200px; margin: 0 auto; padding: 20px; }
 
         section {
             background: var(--glass-panel);
@@ -60,24 +63,46 @@
 
         h2 { font-size: 0.9rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 2rem; color: var(--steel-blue); border-left: 3px solid var(--glow-magenta); padding-left: 15px; }
 
-        /* --- MISSION TABLE --- */
+        /* --- MISSION TABLE (WITH RESULT) --- */
         .mission-row {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr 1.5fr 0.8fr;
             border-bottom: 1px solid var(--border-white);
             padding: 15px 0;
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 1px;
+            align-items: center;
         }
         .mission-header { font-weight: bold; color: var(--steel-blue); border-bottom: 2px solid var(--border-white); }
+        
+        .res-badge {
+            padding: 4px 8px;
+            border-radius: 2px;
+            font-size: 0.65rem;
+            text-align: center;
+            font-weight: bold;
+            border: 1px solid currentColor;
+        }
+        .res-success { color: var(--success); }
+        .res-failure { color: var(--failure); }
+        .res-upcoming { color: var(--scheduled); }
+
         .mission-desc { grid-column: 1 / -1; text-transform: none; color: #aaa; padding-top: 10px !important; font-style: italic; }
 
-        /* --- TEST CARDS --- */
-        .test-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .test-card { border: 1px solid var(--border-white); padding: 15px; background: rgba(0,0,0,0.3); }
+        /* --- TEST CARDS (WITH RESULT) --- */
+        .test-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .test-card { border: 1px solid var(--border-white); padding: 15px; background: rgba(0,0,0,0.3); position: relative; }
         .test-card h3 { font-size: 0.8rem; color: var(--glow-magenta); margin-top: 0; text-transform: uppercase; }
         .test-label { font-size: 0.6rem; color: var(--steel-blue); display: block; margin-top: 8px; font-weight: bold; }
+        
+        .test-result-line {
+            margin-top: 15px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-weight: bold;
+            font-size: 0.7rem;
+        }
 
         /* --- INTERACTIVE CHANGELOG --- */
         .log-scroll-frame {
@@ -88,11 +113,8 @@
         }
         details { border-bottom: 1px solid rgba(255,255,255,0.1); padding: 10px 0; }
         summary { cursor: pointer; font-family: monospace; color: var(--glow-magenta); font-weight: bold; display: flex; justify-content: space-between; padding: 5px; }
-        summary:hover { background: rgba(230, 0, 255, 0.1); }
         
         .log-content { padding: 15px; font-size: 0.85rem; background: rgba(0,0,0,0.2); }
-        
-        /* Bullet Point Categories */
         .log-cat { font-weight: bold; margin-top: 15px; display: block; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; }
         .cat-added { color: var(--added-color); }
         .cat-removed { color: var(--removed-color); }
@@ -104,7 +126,7 @@
         .booking-btn { border: 1px solid white; color: white; padding: 10px 25px; text-decoration: none; font-size: 0.8rem; letter-spacing: 2px; transition: 0.3s; display: inline-block; }
         .booking-btn:hover { background: white; color: black; box-shadow: 0 0 15px white; }
 
-        @media (max-width: 850px) { .mission-row { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 950px) { .mission-row { grid-template-columns: 1fr 1fr; } }
     </style>
 </head>
 <body>
@@ -121,12 +143,19 @@
         <section id="missions">
             <h2>Mission Manifest</h2>
             <div class="mission-row mission-header">
-                <div>Mission</div><div>Vehicle</div><div>Launch Site</div><div>Landing Site</div><div>Date & Time</div>
+                <div>Mission</div><div>Vehicle</div><div>Launch Site</div><div>Landing Site</div><div>Date & Time</div><div>Result</div>
             </div>
 
             <div class="mission-row">
                 <div>AFAA I - Orbital Link</div><div>Horizon Heavy</div><div>SLC-4E, CA</div><div>Droneship</div><div>Feb 7, 2026 11:05 CT</div>
-                <div class="mission-desc">Deployment of the first high-bandwidth constellation for Galactic Horizon.</div>
+                <div><span class="res-badge res-success">SUCCESS</span></div>
+                <div class="mission-desc">Deployment of the first high-bandwidth constellation for Galactic Horizon. All satellites reached target orbit.</div>
+            </div>
+
+            <div class="mission-row">
+                <div>Pathfinder II</div><div>Nova-9</div><div>KSC Pad 39A</div><div>LZ-1, FL</div><div>Mar 15, 2026 09:00 ET</div>
+                <div><span class="res-badge res-upcoming">SCHEDULED</span></div>
+                <div class="mission-desc">Lunar south pole reconnaissance mission. Currently in final integration phase.</div>
             </div>
         </section>
 
@@ -137,11 +166,14 @@
                     <span class="test-label">TEST</span><h3>Static Fire Alpha</h3>
                     <span class="test-label">TEST ARTICLE</span><p>AFAA Booster B108</p>
                     <span class="test-label">TYPE / SITE</span><p>Ignition / McGregor, TX</p>
+                    <div class="test-result-line">RESULT: <span style="color:var(--success)">FULL DURATION SUCCESS</span></div>
                 </div>
+
                 <div class="test-card">
                     <span class="test-label">TEST</span><h3>Pressure Proof</h3>
                     <span class="test-label">TEST ARTICLE</span><p>Cargo Bay S1</p>
                     <span class="test-label">TYPE / SITE</span><p>Cryo Load / Starbase, TX</p>
+                    <div class="test-result-line">RESULT: <span style="color:var(--failure)">STRUCTURAL FAILURE @ 140% LOAD</span></div>
                 </div>
             </div>
         </section>
@@ -149,54 +181,23 @@
         <section id="changelog">
             <h2>Mission Logs (AFAA I)</h2>
             <div class="log-scroll-frame">
-                
                 <details open>
-                    <summary>02.06.26 — Command Center Update</summary>
+                    <summary>02.06.26 — Data Architecture V2</summary>
                     <div class="log-content">
                         <span class="log-cat cat-added">Added:</span>
                         <ul>
-                            <li>Interactive SpaceX-style Mission Manifest.</li>
-                            <li>System Testing Lab data cards.</li>
-                            <li>Categorized bullet point system for log entries.</li>
-                        </ul>
-
-                        <span class="log-cat cat-removed">Removed:</span>
-                        <ul>
-                            <li>Legacy single-column log display.</li>
-                            <li>Static background image to improve load speed.</li>
-                        </ul>
-
-                        <span class="log-cat cat-notes">Additional Notes:</span>
-                        <ul>
-                            <li>All UI components now support high-contrast space-theme readability.</li>
-                        </ul>
-                    </div>
-                </details>
-
-                <details>
-                    <summary>02.05.26 — Navigation Subsystems</summary>
-                    <div class="log-content">
-                        <span class="log-cat cat-added">Added:</span>
-                        <ul>
-                            <li>New telemetry handshake protocol.</li>
-                            <li>Auto-correction for solar flare interference.</li>
+                            <li>Result tracking for Missions and Lab Tests.</li>
+                            <li>Color-coded status badges for instant readability.</li>
+                            <li>Expanded Mission Manifest grid to include success/failure metrics.</li>
                         </ul>
                         <span class="log-cat cat-notes">Additional Notes:</span>
                         <ul>
-                            <li>Flight software version updated to v1.2.4.</li>
+                            <li>"Result" tab styling is synchronized across all modules.</li>
                         </ul>
                     </div>
                 </details>
-
-                <details><summary>02.04.26 — Payload Integration</summary><div class="log-content"><ul><li>Log data placeholder...</li></ul></div></details>
-                <details><summary>02.03.26 — Thermal Shielding Check</summary><div class="log-content"><ul><li>Log data placeholder...</li></ul></div></details>
-                <details><summary>02.02.26 — Ground Station Sync</summary><div class="log-content"><ul><li>Log data placeholder...</li></ul></div></details>
-                <details><summary>02.01.26 — Fuel Manifold Test</summary><div class="log-content"><ul><li>Log data placeholder...</li></ul></div></details>
-                <details><summary>01.28.26 — Encrypted Link Setup</summary><div class="log-content"><ul><li>Log data placeholder...</li></ul></div></details>
-                <details><summary>01.20.26 — Hardware Finalization</summary><div class="log-content"><ul><li>Log data placeholder...</li></ul></div></details>
-                <details><summary>01.10.26 — Pre-Launch Diagnostics</summary><div class="log-content"><ul><li>Log data placeholder...</li></ul></div></details>
+                <details><summary>02.05.26 — Logic Update</summary><div class="log-content"><ul><li>Placeholder...</li></ul></div></details>
                 <details><summary>01.05.26 — INITIAL LAUNCH SUCCESS</summary><div class="log-content"><ul><li>Mission Active.</li></ul></div></details>
-
             </div>
         </section>
 
